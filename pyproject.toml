@@ -1,11 +1,13 @@
 [tool.poetry]
 name = "prefect_streamline"
-version = "1.1.0"
+version = "1.1.1"
 description = "Prefect_Streamline is an opinionated extension that provides helpers to deploy and test Prefect flows quickly and easily."
 authors = ["Fabien Arcellier <fabien.arcellier@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "prefect_streamline", from = "src"}]
+packages = [
+    {include = "prefect_streamline", from = "src"}
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
