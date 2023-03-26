@@ -27,6 +27,7 @@ alfred-cli = "^1.2.0"
 mypy = "^0.991"
 pytest = "^7.2.0"
 fixtup = "^0.1.4"
+twine = "^4.0.2"
 
 [build-system]
 requires = ["poetry-core"]
