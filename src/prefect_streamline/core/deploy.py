@@ -13,6 +13,9 @@ from typing import List, Optional, Union, cast
 
 from prefect import Flow
 from prefect.deployments import Deployment
+
+from prefect_streamline.core import waiting
+
 try:
     from prefect.server.schemas.schedules import IntervalSchedule, CronSchedule
 except ImportError as exception:
@@ -73,13 +76,16 @@ def register(deploy_book: DeployBook, flow: Flow, name: Optional[str] = None, in
     deploy_book.deploy_flows.append(DeployFlow(flow=flow, name=name, interval=interval, cron=cron))
 
 
-def deploy(book: DeployBook) -> None:
+def deploy(book: DeployBook, timeout: int=60000) -> None:
     """
     The url of the prefect instance to deploy to is retrieved
     from the PREFECT_API_URL environment variable
 
     Inject a specific PREFECT_API_URL variable of the endpoint the deploy script will use.
     """
+    api_url = os.getenv('PREFECT_API_URL')
+    waiting.request_ok(f"{api_url}/health", timeout=timeout)
+
     root_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..')
     for deploy_flow in book.deploy_flows:
         deployment = Deployment.build_from_flow(
