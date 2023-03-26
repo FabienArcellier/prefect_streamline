@@ -40,6 +40,24 @@ prefect-streamline deploy myapp/flow.py
 prefect-streamline deploy --discover src/myapp
 ```
 
+### Test native python function instead of flow
+
+```python
+from prefect_streamline import flowtest
+
+def test_test_flow_should_handle_the_logger():
+    with flowtest.use_native_runner():
+        assert flowtest.fn(myflow)() == 12
+```
+
+```python
+
+@flow()
+def myflow() -> int:
+    logger = get_run_logger()
+    return 12
+```
+
 ## The latest version
 
 You can find the latest version to ...
