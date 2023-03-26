@@ -73,6 +73,9 @@ def register(deploy_book: DeployBook, flow: Flow, name: Optional[str] = None, in
     if interval is not None and cron is not None:
         raise ValueError(f"Cannot define both interval and cron for the flow {flow.name=} - {interval=} - {cron=}")
 
+    if not isinstance(flow, Flow):
+        raise ValueError(f"Cannot register {flow} as it is not a Flow, maybe you set deploybook.register first instead of flow")
+
     deploy_book.deploy_flows.append(DeployFlow(flow=flow, name=name, interval=interval, cron=cron))
 
 

@@ -1,4 +1,5 @@
 import contextlib
+import functools
 from typing import Optional, List
 
 from prefect_streamline.core import deploy as core_deploy, importutils
@@ -48,7 +49,6 @@ def register(name: Optional[str] = None, interval: Optional[int] = None, cron: O
     >>> def myflow() -> int:
     >>>     return 43
     """
-
     def inner(func):
         core_deploy.register(_deploy_book, func, name=name, interval=interval, cron=cron)
         return func
