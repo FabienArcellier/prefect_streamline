@@ -4,6 +4,20 @@ prefect_streamline is an opinionated extension that provides helpers to deploy a
 
 With its deployment and testing features, you can easily ensure the quality and reliability of your workflows before deploying them.
 
+<!-- TOC start -->
+- [Getting started](#getting-started)
+- [Usage](#usage)
+  * [Deploy flows using decorator](#deploy-flows-using-decorator)
+  * [Accelerate flow testing using native python invocation](#accelerate-flow-testing-using-native-python-invocation)
+- [Latest version](#latest-version)
+- [Developper guideline](#developper-guideline)
+  * [Install development environment](#install-development-environment)
+  * [update the locked dependencies](#update-the-locked-dependencies)
+  * [Run the continuous integration process](#run-the-continuous-integration-process)
+- [Contributors](#contributors)
+- [License](#license)
+<!-- TOC end -->
+
 ## Getting started
 
 ```bash
@@ -12,7 +26,7 @@ pip install prefect_streamline
 
 ## Usage
 
-### Deploy flow using decorator
+### Deploy flows using decorator
 
 ``prefect_streamline`` allows you to configure the deployment of flows with a decorator.
 Vous pouvez définir plusieurs déploiements pour un même flow.
@@ -40,7 +54,7 @@ prefect-streamline deploy myapp/flow.py
 prefect-streamline deploy --discover src/myapp
 ```
 
-### Test native python function instead of flow
+### Accelerate flow testing using native python invocation
 
 ```python
 from prefect_streamline import flowtest
@@ -58,7 +72,7 @@ def myflow() -> int:
     return 12
 ```
 
-## The latest version
+## Latest version
 
 You can find the latest version to ...
 
