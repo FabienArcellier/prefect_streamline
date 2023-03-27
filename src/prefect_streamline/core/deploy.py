@@ -89,12 +89,10 @@ def deploy(book: DeployBook, timeout: int=60000) -> None:
     api_url = os.getenv('PREFECT_API_URL')
     waiting.request_ok(f"{api_url}/health", timeout=timeout)
 
-    root_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..')
     for deploy_flow in book.deploy_flows:
         deployment = Deployment.build_from_flow(
             flow=deploy_flow.flow,
             name=cast(str, deploy_flow.name),
-            path=root_dir,
             schedule=deploy_flow.schedule,
         )
 

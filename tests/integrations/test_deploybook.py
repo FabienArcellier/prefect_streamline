@@ -32,6 +32,7 @@ def test_deploy_should_list_deployments_of_flows_for_prefect():
             deployments = response.json()
             assert len(deployments) == 2
             assert deployments[0]['entrypoint'] == 'fake_flow.py:myflow3'
+            assert deployments[0]['path'] == os.getcwd()
             assert deployments[0]['name'] == 'hello2'
             assert deployments[1]['entrypoint'] == 'fake_flow.py:myflow3'
             assert deployments[1]['name'] == 'main'
