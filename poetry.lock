@@ -40,23 +40,21 @@ tz = ["python-dateutil"]
 
 [[package]]
 name = "alfred-cli"
-version = "1.2.0"
-description = "alfred is a building tool to make engineering tasks easier to develop and to maintain"
+version = "2.0.0"
+description = "alfred is an extensible building tool that can replace a Makefile or Fabric. Writing commands in python is done in minutes."
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8,<4.0"
 files = [
-    {file = "alfred-cli-1.2.0.tar.gz", hash = "sha256:248a40ef41d2cb8b91568fa3ace21d11c506a3869fa5eacb01176172710cad72"},
-    {file = "alfred_cli-1.2.0-py3-none-any.whl", hash = "sha256:a629924bbcf9ad8a420eb0aa16d34308f2f7d1bbdea508afde273e2a851efd9f"},
+    {file = "alfred_cli-2.0.0-py3-none-any.whl", hash = "sha256:2e23130d72a48620f14890d1bb87222136da80181f82fc37d1a2568b647b6e3f"},
+    {file = "alfred_cli-2.0.0.tar.gz", hash = "sha256:fae65bb79afb0df8661a7dea9ab9438e9b2ef0f5c8faae73a63c3fd9b3921359"},
 ]
 
 [package.dependencies]
-click = "*"
-plumbum = "*"
-PyYAML = "*"
-
-[package.extras]
-dev = ["build", "coverage", "pylint", "twine"]
+click = ">=8.1.3,<9.0.0"
+plumbum = ">=1.8.1,<2.0.0"
+pyyaml = ">=6.0,<7.0"
+toml = ">=0.10.2,<0.11.0"
 
 [[package]]
 name = "anyio"
@@ -2630,4 +2628,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "eecb4225cd887a7d662c91aa05f19e1c80e37ff37253bbdba7cfa47f4daaff36"
+content-hash = "503935c601a3c29fd39b7fb9b6c8819c380705881ea0fe75d32d43cbcabc4f86"

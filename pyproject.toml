@@ -27,7 +27,7 @@ types-requests = "^2.25"
 prefect-streamline = 'prefect_streamline.cli:cli'
 
 [tool.poetry.group.dev.dependencies]
-alfred-cli = "^1.2.0"
+alfred-cli = "^2.0.0"
 mypy = "^0.991"
 pytest = "^7.2.0"
 fixtup = "^0.1.4"
