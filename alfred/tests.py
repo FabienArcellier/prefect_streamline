@@ -1,19 +1,22 @@
 import os
 
 import alfred
+import click
 
 ROOT_DIR = os.path.realpath(os.path.join(__file__, "..", ".."))
 
 
 @alfred.command("tests", help="workflow to execute all automatic tests")
-def tests():
+@click.option('--ignore-integration', help='version to test prefect with', is_flag=True, default=False)
+def tests(ignore_integration: bool):
     """
     workflow to execute all automatic tests
 
     >>> $ alfred tests
     """
     alfred.invoke_command('tests:units')
-    alfred.invoke_command('tests:integrations')
+    if not ignore_integration:
+        alfred.invoke_command('tests:integrations')
     alfred.invoke_command('tests:acceptances')
 
 

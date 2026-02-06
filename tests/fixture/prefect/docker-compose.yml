@@ -1,4 +1,3 @@
-version: "3.9"
 services:
     server:
         build:
@@ -13,5 +12,4 @@ services:
             PREFECT_ORION_UI_API_URL: http://localhost:42000/api
         ports:
             - 42000:4200
-        init: true
 

@@ -17,21 +17,22 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-prefect = "^2.8"
+python = "^3.10"
+prefect = "^2.8.7"
 click = "^8.1.3"
 requests = "^2.25.0"
-types-requests = "^2.25"
+
 
 [tool.poetry.scripts]
 prefect-streamline = 'prefect_streamline.cli:cli'
 
 [tool.poetry.group.dev.dependencies]
 alfred-cli = "^2.0.0"
-mypy = "^0.991"
+mypy = "^1.19.1"
 pytest = "^7.2.0"
-fixtup = "^0.1.4"
+fixtup = "^0.1.5"
 twine = "^4.0.2"
+types-requests = "^2.25"
 
 [build-system]
 requires = ["poetry-core"]
@@ -43,3 +44,7 @@ plugins = [
     "fixtup.plugins.dotenv",
     "fixtup.plugins.docker"
 ]
+
+[tool.mypy]
+exclude = ['.venv']
+ignore_missing_imports = true
