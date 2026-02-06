@@ -1,27 +1,40 @@
 name: prefect-ci
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
     build:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
 
         strategy:
-          matrix:
-            prefect-version: ["2.7", "2.8"]
-
+            matrix:
+                prefect-version: [ "2.20.25" ]
+        services:
+            docker:
+                image: docker:dind
+                options: --privileged
         steps:
-            - uses: actions/checkout@v2
+            -   uses: actions/checkout@v2
 
-            - name: Set up Python ${{ matrix.python-version }}
-              uses: actions/setup-python@v2
-              with:
-                  python-version: "3.10"
+            -   name: Set up Python ${{ matrix.python-version }}
+                uses: actions/setup-python@v2
+                with:
+                    python-version: "3.10"
 
-            - name: update package manager & install python3 environment
-              run: |
-                pip install poetry
-                poetry install
+            -   name: update package manager & install python3 environment
+                run: |
+                    pip install poetry
+                    poetry install
 
-            - name: prefect regression process ${{ matrix.prefect-version }}
-              run: poetry run alfred ci:regression --prefect ${{ matrix.prefect-version }}
+            -   name: prefect regression process ${{ matrix.prefect-version }}
+                run: poetry run alfred ci:regression --prefect ${{ matrix.prefect-version }}
+
+            -   name: collect log on failure
+                if: failure()
+                uses: jwalton/gh-docker-logs@v1
+
+            -   name: Afficher logs docker:dind en détail
+                if: failure()
+                run: |
+                    echo "=== DOCKER:DIND DÉTAILLÉ ==="
+                    docker logs --tail 500 -t ${{ job.services.docker.id }} || true

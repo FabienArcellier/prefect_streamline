@@ -13,14 +13,11 @@ from typing import List, Optional, Union, cast
 
 from prefect import Flow
 from prefect.deployments import Deployment
+from prefect.types import PositiveDuration
 
 from prefect_streamline.core import waiting
 
-try:
-    from prefect.server.schemas.schedules import IntervalSchedule, CronSchedule
-except ImportError as exception:
-    from prefect.orion.schemas.schedules import IntervalSchedule, CronSchedule # type: ignore
-
+from prefect.client.schemas.schedules import IntervalSchedule, CronSchedule
 
 
 @dataclasses.dataclass
@@ -42,7 +39,7 @@ class DeployFlow:
         if self.interval is None and self.cron is None:
             return None
         elif self.interval is not None:
-            return IntervalSchedule(interval=self.interval)
+            return IntervalSchedule(interval=PositiveDuration(seconds=self.interval))
         elif self.cron is not None:
             return CronSchedule(cron=self.cron)
 
@@ -90,10 +87,11 @@ def deploy(book: DeployBook, timeout: int=60000) -> None:
     waiting.request_ok(f"{api_url}/health", timeout=timeout)
 
     for deploy_flow in book.deploy_flows:
+        schedules = [deploy_flow.schedule] if deploy_flow.schedule else None
         deployment = Deployment.build_from_flow(
             flow=deploy_flow.flow,
             name=cast(str, deploy_flow.name),
-            schedule=deploy_flow.schedule,
+            schedules=schedules,
         )
 
         deployment.apply() # type: ignore

@@ -7,7 +7,8 @@ ROOT_DIR = os.path.realpath(os.path.join(__file__, "..", ".."))
 
 
 @alfred.command("ci", help="workflow to execute the continuous integration process")
-def ci():
+@click.option('--ignore-integration', help='version to test prefect with', is_flag=True, default=False)
+def ci(ignore_integration):
     """
     workflow to execute the continuous integration process
 
@@ -17,7 +18,7 @@ def ci():
     >>> $ alfred ci
     """
     alfred.invoke_command('lint')
-    alfred.invoke_command('tests')
+    alfred.invoke_command('tests', ignore_integration=ignore_integration)
 
 
 @alfred.command("ci:regression", help="execute integrations tests")
@@ -34,4 +35,4 @@ def ci__regressions(prefect):
     os.chdir(os.path.join(ROOT_DIR, 'tests', 'fixture', 'prefect'))
     alfred.run(poetry, ['add', f'prefect==~{prefect}'])
 
-    alfred.invoke_command('tests')
+    alfred.invoke_command('tests', ignore_integration=True)

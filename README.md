@@ -1,6 +1,6 @@
 ## prefect streamline
 
-prefect_streamline is an opinionated extension that provides helpers to deploy and test Prefect flows quickly and easily.
+prefect_streamline is an opinionated extension that provides helpers to deploy and test Prefect v2 flows quickly and easily.
 
 With its deployment and testing features, you can easily ensure the quality and reliability of your workflows before deploying them.
 
