@@ -758,30 +758,26 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "fixtup"
-version = "0.1.5"
+version = "0.2.1"
 description = "integration testing on steroids"
 optional = false
-python-versions = ">=3.6"
+python-versions = "<4.0,>=3.10"
 groups = ["dev"]
 files = [
-    {file = "fixtup-0.1.5-py3-none-any.whl", hash = "sha256:d330d7e7b654b1b3fa870ed9cc03be7c9c53c8e36a53c270a7f2da17b99e0efd"},
-    {file = "fixtup-0.1.5.tar.gz", hash = "sha256:b5e32cb330aa2f17eb60833ab8783ae5287076f4bd6b7a517caef4134ddeb41b"},
+    {file = "fixtup-0.2.1-py3-none-any.whl", hash = "sha256:5834d6a80c89559b49d1d3e444833aaa62b3aac89079de1618b750f81b692d8b"},
+    {file = "fixtup-0.2.1.tar.gz", hash = "sha256:e5bc4317ee87046036fd3b0f2fbe656beb4905bf9f56e22192b94a48535e0fdf"},
 ]
 
 [package.dependencies]
-attrs = "*"
-click = "*"
-jinja2 = "*"
-plumbum = "*"
-prompt-toolkit = "*"
-python-dotenv = "*"
-pyyaml = "*"
-requests = "*"
-toml = "*"
-
-[package.extras]
-dev = ["alfred-cli", "build", "mypy", "sphinx", "sphinx-rtd-theme", "twine", "types-PyYAML", "types-requests", "types-toml"]
-dev-windows = ["alfred-cli", "types-PyYAML", "types-toml"]
+attrs = ">=25.3.0,<26.0.0"
+click = ">=8.0.0,<9.0.0"
+jinja2 = ">=3.1.3,<4.0.0"
+plumbum = ">=1.8.2,<2.0.0"
+prompt_toolkit = ">=3.0.51,<4.0.0"
+python-dotenv = ">=1.1.1,<2.0.0"
+pyyaml = ">=6.0.1,<7.0.0"
+requests = ">=2.31.0,<3.0.0"
+toml = ">=0.10.2,<0.11.0"
 
 [[package]]
 name = "fsspec"
@@ -3691,4 +3687,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "6ef8c5a22489f7a7c491ea681b6d744775df64d8814f7b6ac5c16e3b8a43d3d8"
+content-hash = "842ba731046a0ae146c2202dc7d6459ef547178522ae860809d9667d6431e643"

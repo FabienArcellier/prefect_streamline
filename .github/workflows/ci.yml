@@ -27,7 +27,7 @@ jobs:
                     poetry install
 
             -   name: continuous integration process
-                run: poetry run alfred ci --ignore-integration
+                run: poetry run alfred ci
 
             -   name: collect log on failure
                 if: failure()
