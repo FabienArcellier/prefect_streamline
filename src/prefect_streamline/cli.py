@@ -48,7 +48,7 @@ def deploy_cmd(discover: bool, _list: bool, module: Optional[str] = None, path: 
     if _list is False:
         deploybook.deploy()
     else:
-        deploys = deploybook.list()
+        deploys = deploybook.deployment_list()
         for _deploy in deploys:
             click.echo(_deploy.format())
 

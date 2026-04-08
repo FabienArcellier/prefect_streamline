@@ -35,4 +35,7 @@ def ci__regressions(prefect):
     os.chdir(os.path.join(ROOT_DIR, 'tests', 'fixture', 'prefect'))
     alfred.run(poetry, ['add', f'prefect==~{prefect}'])
 
+    os.chdir(ROOT_DIR)
+    alfred.run(poetry, ['install'])
+
     alfred.invoke_command('tests', ignore_integration=True)

@@ -9,15 +9,14 @@ The developer saves these flows in a deployment book.
 """
 import dataclasses
 import os
-from typing import List, Optional, Union, cast
+from datetime import timedelta
+from typing import List, Optional, cast
 
 from prefect import Flow
-from prefect.deployments import Deployment
-from prefect.types import PositiveDuration
+from prefect.schedules import Schedule
+from prefect.types.entrypoint import EntrypointType
 
 from prefect_streamline.core import waiting
-
-from prefect.client.schemas.schedules import IntervalSchedule, CronSchedule
 
 
 @dataclasses.dataclass
@@ -35,13 +34,13 @@ class DeployFlow:
             self.name = "main"
 
     @property
-    def schedule(self) -> Optional[Union[IntervalSchedule, CronSchedule]]:
+    def schedule(self) -> Optional[Schedule]:
         if self.interval is None and self.cron is None:
             return None
         elif self.interval is not None:
-            return IntervalSchedule(interval=PositiveDuration(seconds=self.interval))
+            return Schedule(interval=timedelta(seconds=self.interval))
         elif self.cron is not None:
-            return CronSchedule(cron=self.cron)
+            return Schedule(cron=self.cron)
 
         return None
 
@@ -88,14 +87,14 @@ def deploy(book: DeployBook, timeout: int=60000) -> None:
 
     for deploy_flow in book.deploy_flows:
         schedules = [deploy_flow.schedule] if deploy_flow.schedule else None
-        deployment = Deployment.build_from_flow(
-            flow=deploy_flow.flow,
+        deployment = deploy_flow.flow.to_deployment(
             name=cast(str, deploy_flow.name),
             schedules=schedules,
+            entrypoint_type=EntrypointType.MODULE_PATH
         )
 
         deployment.apply() # type: ignore
 
 
-def list(book: DeployBook):
+def deployment_list(book: DeployBook):
     return book.deploy_flows

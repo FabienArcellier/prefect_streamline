@@ -75,30 +75,25 @@ def publish__dist():
 
     >>> $ alfred publish:pypi
     """
-    alfred.invoke_command('dist')
-    alfred.invoke_command('publish:twine')
+    alfred.invoke_command('publish:poetry')
 
 
-@alfred.command("publish:twine", help="push fixtup to pypi")
-def publish__twine():
+@alfred.command("publish:poetry", help="push fixtup to pypi")
+def publish__poetry():
     """
-    push fixtup to pypi
+    push to pypi
 
     This operation requires you set a pypi publication token as env var
 
-    * TWINE_USERNAME
-    * TWINE_PASSWORD
+    * POETRY_PYPI_TOKEN_PYPI
 
     >>> $ alfred publish:twine
     """
-    username = os.getenv('TWINE_USERNAME', None)
-    password = os.getenv('TWINE_PASSWORD', None)
-    if username is None:
-        os.environ['TWINE_USERNAME'] = '__token__'
+    password = os.getenv('POETRY_PYPI_TOKEN_PYPI', None)
 
     if password is None:
-        raise UsageError('TWINE_PASSWORD should contains your pypi token to publish fixtup : https://pypi.org/help/#apitoken')
+        raise UsageError('POETRY_PYPI_TOKEN_PYPI must contain your pypi token : https://pypi.org/help/#apitoken')
 
-    twine = alfred.sh("twine")
+    twine = alfred.sh("poetry")
     os.chdir(ROOT_DIR)
-    alfred.run(twine, ['upload', '--non-interactive', 'dist/*'])
+    alfred.run(twine, ['publish', '--build', '--non-interactive'])

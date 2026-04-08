@@ -8,23 +8,23 @@ jobs:
 
         strategy:
             matrix:
-                prefect-version: [ "2.20.25" ]
+                prefect-version: [ "3.2.0" ]
         services:
             docker:
                 image: docker:dind
                 options: --privileged
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v6
 
             -   name: Set up Python ${{ matrix.python-version }}
-                uses: actions/setup-python@v2
+                uses: actions/setup-python@v6
                 with:
-                    python-version: "3.10"
+                    python-version: "3.12"
 
             -   name: update package manager & install python3 environment
                 run: |
                     pip install poetry
-                    poetry install
+                    poetry install --no-interaction --sync --with dev
 
             -   name: prefect regression process ${{ matrix.prefect-version }}
                 run: poetry run alfred ci:regression --prefect ${{ matrix.prefect-version }}
