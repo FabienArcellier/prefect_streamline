@@ -1,14 +1,11 @@
 ## prefect streamline
 
-prefect_streamline is an opinionated extension that provides helpers to deploy and test Prefect v2 flows quickly and easily.
-
-With its deployment and testing features, you can easily ensure the quality and reliability of your workflows before deploying them.
+prefect_streamline is an opinionated extension that provides helpers to deploy Prefect v3 flows quickly and easily.
 
 <!-- TOC start -->
 - [Getting started](#getting-started)
 - [Usage](#usage)
   * [Deploy flows using decorator](#deploy-flows-using-decorator)
-  * [Accelerate flow testing using native python invocation](#accelerate-flow-testing-using-native-python-invocation)
 - [Latest version](#latest-version)
 - [Developper guideline](#developper-guideline)
   * [Install development environment](#install-development-environment)
@@ -52,24 +49,6 @@ prefect-streamline deploy myapp/flow.py
 
 # search all flow records in all myapp modules.
 prefect-streamline deploy --discover src/myapp
-```
-
-### Accelerate flow testing using native python invocation
-
-```python
-from prefect_streamline import flowtest
-
-def test_test_flow_should_handle_the_logger():
-    with flowtest.use_native_runner():
-        assert flowtest.fn(myflow)() == 12
-```
-
-```python
-
-@flow()
-def myflow() -> int:
-    logger = get_run_logger()
-    return 12
 ```
 
 ## Latest version
@@ -117,7 +96,7 @@ poetry run alfred ci
 
 MIT License
 
-Copyright (c) 2018-2022 Fabien Arcellier
+Copyright (c) 2018-2026 Fabien Arcellier
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

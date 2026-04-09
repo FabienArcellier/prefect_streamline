@@ -11,8 +11,8 @@ def deploy() -> None:
     core_deploy.deploy(_deploy_book)
 
 
-def list() -> List[core_deploy.DeployFlow]:
-    return core_deploy.list(_deploy_book)
+def deployment_list() -> List[core_deploy.DeployFlow]:
+    return core_deploy.deployment_list(_deploy_book)
 
 
 def register(name: Optional[str] = None, interval: Optional[int] = None, cron: Optional[str] = None):
