@@ -28,6 +28,8 @@ class DeployFlow:
     name: Optional[str] = None
     interval: Optional[int] = None
     cron: Optional[str] = None
+    work_pool_name: Optional[str] = None
+    work_queue_name: Optional[str] = None
 
     def __post_init__(self):
         if self.name is None:
@@ -56,6 +58,7 @@ class DeployFlow:
 
         return label + ", ".join(elements) + ")"
 
+
 @dataclasses.dataclass
 class DeployBook:
     deploy_flows: List[DeployFlow] = dataclasses.field(default_factory=list)
@@ -65,17 +68,20 @@ def create_deploy_book() -> DeployBook:
     return DeployBook()
 
 
-def register(deploy_book: DeployBook, flow: Flow, name: Optional[str] = None, interval: Optional[int] = None, cron: Optional[str] = None) -> None:
+def register(deploy_book: DeployBook, flow: Flow, name: Optional[str] = None, interval: Optional[int] = None,
+             cron: Optional[str] = None, work_pool_name: Optional[str] = None, work_queue_name: Optional[str] = None) -> None:
     if interval is not None and cron is not None:
         raise ValueError(f"Cannot define both interval and cron for the flow {flow.name=} - {interval=} - {cron=}")
 
     if not isinstance(flow, Flow):
-        raise ValueError(f"Cannot register {flow} as it is not a Flow, maybe you set deploybook.register first instead of flow")
+        raise ValueError(
+            f"Cannot register {flow} as it is not a Flow, maybe you set deploybook.register first instead of flow")
 
-    deploy_book.deploy_flows.append(DeployFlow(flow=flow, name=name, interval=interval, cron=cron))
+    deploy_book.deploy_flows.append(
+        DeployFlow(flow=flow, name=name, interval=interval, cron=cron, work_pool_name=work_pool_name, work_queue_name=work_queue_name))
 
 
-def deploy(book: DeployBook, timeout: int=60000) -> None:
+def deploy(book: DeployBook, timeout: int = 60000) -> None:
     """
     The url of the prefect instance to deploy to is retrieved
     from the PREFECT_API_URL environment variable
@@ -90,10 +96,12 @@ def deploy(book: DeployBook, timeout: int=60000) -> None:
         deployment = deploy_flow.flow.to_deployment(
             name=cast(str, deploy_flow.name),
             schedules=schedules,
-            entrypoint_type=EntrypointType.MODULE_PATH
+            entrypoint_type=EntrypointType.MODULE_PATH,
+            work_pool_name=deploy_flow.work_pool_name,
+            work_queue_name=deploy_flow.work_queue_name
         )
 
-        deployment.apply() # type: ignore
+        deployment.apply()  # type: ignore
 
 
 def deployment_list(book: DeployBook):
