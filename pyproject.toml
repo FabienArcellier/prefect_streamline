@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "prefect_streamline"
-version = "3.0.0"
+version = "3.0.1rc1"
 description = "Prefect_Streamline is an opinionated extension that provides helpers to deploy Prefect flows quickly and easily."
 authors = ["Fabien Arcellier <fabien.arcellier@gmail.com>"]
 license = "MIT"
