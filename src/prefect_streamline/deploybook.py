@@ -15,7 +15,7 @@ def deployment_list() -> List[core_deploy.DeployFlow]:
     return core_deploy.deployment_list(_deploy_book)
 
 
-def register(name: Optional[str] = None, interval: Optional[int] = None, cron: Optional[str] = None):
+def register(name: Optional[str] = None, interval: Optional[int] = None, cron: Optional[str] = None, work_pool_name: Optional[str] = None, work_queue_name: Optional[str] = None):
     """
     register a flow to deploy it with the command prefect-streamline deploy
 
@@ -50,7 +50,7 @@ def register(name: Optional[str] = None, interval: Optional[int] = None, cron: O
     >>>     return 43
     """
     def inner(func):
-        core_deploy.register(_deploy_book, func, name=name, interval=interval, cron=cron)
+        core_deploy.register(_deploy_book, func, name=name, interval=interval, cron=cron, work_pool_name=work_pool_name, work_queue_name=work_queue_name)
         return func
 
     return inner
